@@ -1,4 +1,6 @@
 using AuthandAuthrizations.Data;
+using AuthandAuthrizations.Services;
+using AuthandAuthrizations.Services.Interface;
 using EmployeeManagementAPI.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
@@ -89,6 +91,7 @@ namespace AuthandAuthrizations
 
             // Add TokenService
             builder.Services.AddScoped<TokenService>();
+            builder.Services.AddTransient<IStuddent, StudentSrvc>();
 
             var app = builder.Build();
 

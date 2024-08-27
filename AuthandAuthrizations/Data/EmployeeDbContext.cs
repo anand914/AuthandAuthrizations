@@ -10,5 +10,6 @@ namespace AuthandAuthrizations.Data
         }
 
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<Student> Student { get; set; }
     }
 }
