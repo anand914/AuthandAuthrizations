@@ -1,6 +1,8 @@
 using AuthandAuthrizations.Data;
 using EmployeeManagementAPI.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -20,8 +22,16 @@ namespace AuthandAuthrizations
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnections"));
             });
 
-            builder.Services.AddControllers();
+            builder.Services.AddControllers(options =>
+            {
+                options.Filters.Add(new ProducesAttribute("application/json"));
+            });
 
+            builder.Services.AddApiVersioning(config =>
+            {
+                config.AssumeDefaultVersionWhenUnspecified = true;
+                config.DefaultApiVersion = new ApiVersion(1,0);
+            });
             // Add JWT Authentication
             builder.Services.AddAuthentication(options =>
             {

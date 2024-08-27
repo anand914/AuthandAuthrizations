@@ -5,10 +5,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace AuthandAuthrizations.Controllers
+namespace AuthandAuthrizations.Controllers.v2
 {
     [Produces("application/json")]
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     public class EmployeeController : ControllerBase
     {
@@ -36,7 +36,7 @@ namespace AuthandAuthrizations.Controllers
             return employee;
         }
 
-        [Authorize(Roles ="admin")]
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<ActionResult<Employee>> PostEmployee(Employee employee)
         {
@@ -45,7 +45,7 @@ namespace AuthandAuthrizations.Controllers
             return CreatedAtAction("GetEmployee", new { id = employee.Id }, employee);
         }
 
-        [Authorize(Roles ="admin")]
+        [Authorize(Roles = "admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutEmployee(int id, Employee employee)
         {

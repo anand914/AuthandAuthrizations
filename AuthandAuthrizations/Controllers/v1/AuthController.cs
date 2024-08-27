@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace AuthandAuthrizations.Controllers
+namespace AuthandAuthrizations.Controllers.v1
 {
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
     {
@@ -47,8 +47,12 @@ namespace AuthandAuthrizations.Controllers
 
             // Generate JWT token if the password is valid
             var token = _tokenService.GenerateToken(employee);
-            return Ok(new { Token = token });
+            return Ok(new
+            {
+                Employee = employee,
+                Token = token
+            });
         }
     }
-   
+
 }
